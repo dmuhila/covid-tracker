@@ -1,0 +1,47 @@
+<div class="jumbotron text-center" >
+    <h1 class="display-4">COVID Tracker</h1>
+    <app-card [confirmed]="totalConfirmed" [recovered]="totalRecovered" 
+            [death]="totalDeath" [active]="totalActive">
+    </app-card>
+<br/>
+<div class="ui form">
+    <div class="inline fields">
+      <!-- <label for="fruit">Select your favorite fruit:</label> -->
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" name="fruit" id="confirmed" 
+                (click)="onSelect(confirmed.id)" checked=""
+                  tabindex="0" class="hidden" #confirmed>
+          <label for="confirmed">Confirmed</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" name="fruit" id="recovered"
+                 (click)="onSelect(recovered.id)" 
+                 tabindex="0" class="hidden" #recovered>
+          <label for="recovered">Recovered</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" name="fruit" id="active"
+                 (click)="onSelect(active.id)"
+                 tabindex="0" class="hidden" #active>
+          <label for="active">Active</label>
+        </div>
+      </div>
+    </div>
+</div>
+    <div class="row" *ngIf="isData">
+        <div class="col">
+            <google-chart #mychart
+            (chartReady)='ready($event)' [data]="pieChart"></google-chart>
+        </div>
+        <div class="col">
+            <google-chart #mychart1
+            (chartReady)='ready($event)' [data]="columnChart"></google-chart>
+        </div>
+    </div>
+
+</div>

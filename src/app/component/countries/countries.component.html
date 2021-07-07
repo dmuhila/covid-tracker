@@ -1,0 +1,41 @@
+<div class="jumbotron text-center" >
+  <h1 class="display-4">COVID Tracker Countrywise</h1>
+  
+  <app-card [confirmed]="confirmed" [recovered]="recovered" 
+            [death]="death" [active]="active">
+  </app-card>
+
+  <div class="mx-auto">
+    <div class="form-group col-lg-5 mx-auto">
+      <label for="country"></label>
+      <select (change)="onSelect(opt.value)" 
+        name="country" id="country" class="form-control" #opt>
+        <option [value]="country" *ngFor="let country of countries">
+          {{country}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="ui active centered inline loader" *ngIf="!datewise"></div>
+  <div class="row" *ngIf="datewise"> 
+    <div class="col">
+      <table class="ui celled table">
+        <thead>
+          <tr><th>S.No</th>
+          <th>Date</th>
+          <th>Cases</th>
+        </tr></thead>
+        <tbody>
+          <tr *ngFor = "let d of datewise; let i=index">
+            <td data-label="S.No">{{i+1}}</td>
+            <td data-label="Date">{{d?.date}}</td>
+            <td data-label="Cases">{{d?.confirmed}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col" *ngIf="dataTable">
+      <google-chart #mychart [data]="lineChart"></google-chart>
+    </div>
+  </div>
+</div>
